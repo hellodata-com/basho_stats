@@ -35,13 +35,13 @@
 %% Generates a uniformly-distributed random variable (wrapper for convenience)
 %%
 uniform() ->
-    random:uniform().
+    rand:uniform().
 
 %%
 %% Generates an exponential-distributed random variable, using inverse function
 %%
 exponential(Lambda) ->
-    -math:log(random:uniform()) / Lambda.
+    -math:log(rand:uniform()) / Lambda.
 
 %%
 %% Generates a Poisson-distributed random variable by summing exponential rvs
@@ -54,8 +54,8 @@ poisson(Lambda) ->
 %% Generates a Normal-distributed random variable, using Box-Muller method
 %%
 normal(Mean, Sigma) ->
-    Rv1 = random:uniform(),
-    Rv2 = random:uniform(),
+    Rv1 = rand:uniform(),
+    Rv2 = rand:uniform(),
     Rho = math:sqrt(-2 * math:log(1-Rv2)),
     Rho * math:cos(2 * math:pi() * Rv1) * Sigma + Mean.
 
@@ -65,6 +65,6 @@ normal(Mean, Sigma) ->
 %% ====================================================================
 
 poisson_rv_loop(Lambda, Sum, N) when Sum < Lambda ->
-    poisson_rv_loop(Lambda, Sum - math:log(random:uniform()), N+1);
+    poisson_rv_loop(Lambda, Sum - math:log(rand:uniform()), N+1);
 poisson_rv_loop(_Lambda, _Sum, N) ->
     N.
